@@ -29,8 +29,5 @@ jobs:
     - name: Pack the NuGet package
       run: dotnet pack --configuration Release --output ./nupkg
 
-    - name: Add GitHub as source
-      run: dotnet nuget add source --name github "https://nuget.pkg.github.com/maxnau/index.json" --username maxnau --password ${{ secrets.GITHUB_TOKEN }}
-
     - name: Publish to GitHub Packages
       run: dotnet nuget push ./nupkg/*.nupkg --source "github" --api-key ${{ secrets.GITHUB_TOKEN }}
