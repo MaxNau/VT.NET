@@ -7,8 +7,9 @@
     <Authors>Maksym Naumov</Authors>
     <Description>VirusTotal .NET client for API v3</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>VirusTotal, VT</PackageTags>
+    <PackageTags>VirusTotal, VT, Virus Total</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/MaxNau/VT.NET</RepositoryUrl>
   </PropertyGroup>
   
   <ItemGroup>
