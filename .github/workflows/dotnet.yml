@@ -26,8 +26,37 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     
+    - name: Extract Version
+      id: extract_version
+      run: |
+        if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "Version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_ENV
+        else
+          echo "No valid version found."
+          echo "version=" >> $GITHUB_ENV
+        fi
+
+    - name: Validate Version
+      id: validate_version
+      run: |
+        if [[ -z "${{ env.version }}" ]]; then
+          echo "No valid version found."
+          echo "proceed=false" >> $GITHUB_ENV
+        elif [[ ! "${{ env.version }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          echo "Error: Version format is invalid. Should be in the format 1.0.0"
+          echo "proceed=false" >> $GITHUB_ENV
+        else
+          echo "Version is valid: ${{ env.version }}"
+          echo "proceed=true" >> $GITHUB_ENV  # Proceed with packing and publishing
+        fi
+        
     - name: Pack the NuGet package
-      run: dotnet pack --configuration Release --output ./nupkg
+      id: pack
+      if: env.proceed == 'true'
+      run: dotnet pack --configuration Release --output ./nupkg /p:Version=${{ env.version }}
 
     - name: Publish to GitHub Packages
-      run: dotnet nuget push ./nupkg/*.nupkg --source "github" --api-key ${{ secrets.GITHUB_TOKEN }}
+      if: steps.pack.outcome == 'success'  # Only run this step if packing succeeded
+      run: dotnet nuget push ./nupkg/*.nupkg --source "github" --api-key ${{ secrets.MY_GITHUB_TOKEN }}
