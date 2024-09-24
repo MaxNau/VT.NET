@@ -19,6 +19,8 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+    - name: Configure NuGet Source
+      run: dotnet nuget add source --name github --username maxnau --password ${{ secrets.MY_GITHUB_TOKEN }} "https://nuget.pkg.github.com/maxnau/index.json"
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
