@@ -51,11 +51,14 @@ jobs:
           exit 0
         fi
 
+    - name: Echo Validation Outcome
+      run: |
+        echo "Validation Outcome: ${{ steps.validate_version.outcome }}"
+        
     - name: Pack the NuGet package
       id: pack
       if: steps.validate_version.outcome == 'success'  # Only run if version validation succeeded
-      run: |
-        dotnet pack --configuration Release --output ./nupkg /p:Version=${{ env.version }}
+      run: dotnet pack --configuration Release --output ./nupkg /p:Version=${{ env.version }}
 
     - name: Publish to GitHub Packages
       if: steps.pack.outcome == 'success'  # Only run this step if packing succeeded
