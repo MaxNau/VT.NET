@@ -20,7 +20,7 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Configure NuGet Source
-      run: dotnet nuget add source --name github --username maxnau --password ${{ secrets.MY_GITHUB_TOKEN }} "https://nuget.pkg.github.com/maxnau/index.json"
+      run: dotnet nuget add source "https://nuget.pkg.github.com/maxnau/index.json" --name github --username maxnau --password ${{ secrets.MY_GITHUB_TOKEN }} --store-password-in-clear-text
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
