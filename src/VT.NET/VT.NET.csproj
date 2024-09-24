@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>VirusTotal .NET client</Title>
+    <Authors>Maksym Naumov</Authors>
+    <Description>VirusTotal .NET client for API v3</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>VirusTotal, VT</PackageTags>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <InternalsVisibleTo Include="VT.NET.DependencyInjection.Extensions" PublicKey="" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.4" />
+  </ItemGroup>
+
+</Project>
