@@ -20,22 +20,12 @@ namespace VT.NET.Endpoints
         private readonly IValidator<Stream> _vtStreamValidator;
         private readonly IValidator<string> _hashValidator;
 
-        public VTFiles(HttpClient httpClient) : base(httpClient)
+        public VTFiles(HttpClient httpClient, string apiKey = null) : base(httpClient)
         {
             var validatorFactory = new ValidatorFactory();
             _vtFileValidator = validatorFactory.Get<string>(typeof(VTFileValidator));
             _vtStreamValidator = validatorFactory.Get<Stream>(typeof(StreamValidator));
             _hashValidator = validatorFactory.Get<string>(typeof(FileHashValidator));
-        }
-
-        public VTFiles(HttpClient httpClient, string apiKey) : base(httpClient)
-        {
-            var validatorFactory = new ValidatorFactory();
-            _vtFileValidator = validatorFactory.Get<string>(typeof(VTFileValidator));
-            _vtStreamValidator = validatorFactory.Get<Stream>(typeof(StreamValidator));
-            _hashValidator = validatorFactory.Get<string>(typeof(FileHashValidator));
-
-            AddDefaultRequestHeader(VTHeaderNames.ApiKey, apiKey);
         }
 
         public async Task<FileAnalysis> UploadFileAsync(string filePath, bool forceUploadUrl = false, CancellationToken cancellationToken = default)
