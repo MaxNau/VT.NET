@@ -27,7 +27,14 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     
     - name: Pack the NuGet package
-      run: dotnet pack --configuration Release --output ./nupkg
+      id: pack
+      run: |
+        # Extract the version from the tag
+        VERSION=${GITHUB_REF#refs/tags/v}
+        echo "Version: $VERSION"
 
+        # Pack the NuGet package with the extracted version
+        dotnet pack --configuration Release --output ./nupkg /p:Version=$VERSION
+        
     - name: Publish to GitHub Packages
       run: dotnet nuget push ./nupkg/*.nupkg --source "github" --api-key ${{ secrets.MY_GITHUB_TOKEN }}
