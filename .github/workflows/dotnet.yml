@@ -2,6 +2,8 @@ name: .NET
 
 on:
   push:
+    tags:
+      - 'v*'  # Trigger on version tags, e.g., v1.0.0
     branches: [ "main", "develop" ]
   pull_request:
     branches: [ "main" ]
@@ -23,3 +25,9 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    
+    - name: Pack the NuGet package
+      run: dotnet pack --configuration Release --output ./nupkg
+
+    - name: Publish to GitHub Packages
+      run: dotnet nuget push ./nupkg/*.nupkg --source "github" --api-key ${{ secrets.GITHUB_TOKEN }}
