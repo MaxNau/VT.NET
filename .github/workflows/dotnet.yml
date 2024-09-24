@@ -53,10 +53,13 @@ jobs:
 
     - name: Pack the NuGet package
       id: pack
-      if: ${{ env.version != '' && env.version =~ '^[0-9]+\.[0-9]+\.[0-9]+$' }}  # Only run if the version is valid
+      if: env.version != '' && startsWith(env.version, 'v') == false  # Check if version is valid
       run: |
         dotnet pack --configuration Release --output ./nupkg /p:Version=${{ env.version }}
 
+    - name: Publish to GitHub Packages
+      if: steps.pack.outcome == 'success'  # Only run this step if packing succeeded
+      run: dotnet nuget push ./nupkg/*.nupkg --source "github" --api-key ${{ secrets.MY_GITHUB_TOKEN }}
     - name: Publish to GitHub Packages
       if: steps.pack.outcome == 'success'  # Only run this step if the packing succeeded
       run: dotnet nuget push ./nupkg/*.nupkg --source "github" --api-key ${{ secrets.MY_GITHUB_TOKEN }}
