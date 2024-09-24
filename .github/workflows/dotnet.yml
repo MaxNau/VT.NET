@@ -29,6 +29,7 @@ jobs:
     - name: Extract Version
       id: extract_version
       run: |
+        echo "GITHUB_REF: ${GITHUB_REF}"
         if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
           VERSION=${GITHUB_REF#refs/tags/v}
           echo "Version: $VERSION"
