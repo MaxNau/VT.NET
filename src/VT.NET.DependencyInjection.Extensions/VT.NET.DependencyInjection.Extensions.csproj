@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VT.NET\VT.NET.csproj" />
+    <PackageReference Include="VT.NET" Version="*-*" />
   </ItemGroup>
-
+  
 </Project>
