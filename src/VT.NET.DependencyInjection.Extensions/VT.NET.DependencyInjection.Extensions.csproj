@@ -57,7 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="VT.NET" Version="*" />
+    <PackageReference Include="VTNet" Version="*" />
   </ItemGroup>
   
 </Project>
