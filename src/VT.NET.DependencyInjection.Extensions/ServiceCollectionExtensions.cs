@@ -4,6 +4,8 @@ using System;
 using System.Net.Http;
 using VT.NET.Constants;
 using VT.NET.Endpoints;
+using VT.NET.Utility;
+using VT.NET.Internal;
 
 namespace VT.NET.DependencyInjection.Extensions
 {
@@ -43,6 +45,10 @@ namespace VT.NET.DependencyInjection.Extensions
                     apiUrl = materialsProjectConfig.Url;
                 }
             }
+
+            services.AddSingleton<IHashAlgorithmFactory, HashAlgorithmFactory>();
+            services.AddSingleton<IFileHasher, FileHasher>();
+            services.AddSingleton<IAsyncFileHasher, FileHasher>();
 
 #if NET5_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER
             var client = new HttpClient(
