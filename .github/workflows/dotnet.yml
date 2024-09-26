@@ -66,7 +66,7 @@ jobs:
 
     - name: Publish VT.NET
       if: steps.pack_vt.outcome == 'success'
-      run: dotnet nuget push ./nupkg/VT.NET.*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
+      run: dotnet nuget push ./nupkg/VTNet.*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
 
 ######## VT.NET.DependencyInjection.Extensions
 
@@ -86,4 +86,4 @@ jobs:
 
     - name: Publish VT.NET.DependencyInjection.Extensions
       if: steps.pack_vt_di.outcome == 'success'
-      run: dotnet nuget push ./nupkg/VT.NET.DependencyInjection.Extensions.*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
+      run: dotnet nuget push ./nupkg/VTNet.DependencyInjection.Extensions.*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
