@@ -35,8 +35,8 @@ namespace VT.NET.Http
 
         async Task<T> IRestClient.GetAsync<T>(string requestUri, CancellationToken cancellationToken)
         {
-            var response = await _httpClient.GetAsync(requestUri);
-            return await GetResponseContentAsync<T>(response);
+            var response = await _httpClient.GetAsync(requestUri).ConfigureAwait(false);
+            return await GetResponseContentAsync<T>(response).ConfigureAwait(false);
         }
 
         async Task<T> IRestClient.PostAsync<T>(string requestUri, HttpContent content, CancellationToken cancellationToken)

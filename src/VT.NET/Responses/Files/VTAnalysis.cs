@@ -3,12 +3,12 @@
 namespace VT.NET.Responses.Files
 {
     /// <summary>
-    /// Represents the analysis of a file or URL in the VirusTotal service.
+    /// Represents the analysis of a file, URL etc in the VirusTotal service.
     /// </summary>
     /// <remarks>
     /// The <see cref="VTAnalysis"/> class inherits from <see cref="VTObject"/> and 
-    /// provides information related to the analysis type and identifiers for files 
-    /// or URLs analyzed by VirusTotal.
+    /// provides information related to the analysis type and identifiers for files, 
+    /// URLs etc analyzed by VirusTotal.
     /// </remarks>
     public class VTAnalysis : VTObject
     {

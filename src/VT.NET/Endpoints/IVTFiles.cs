@@ -46,7 +46,7 @@ namespace VT.NET.Endpoints
         /// <param name="id">The identifier of the file to rescan.</param>
         /// <param name="cancellationToken">A cancellation token to cancel the operation.</param>
         /// <returns>A task representing the asynchronous rescan operation, with a result of type <see cref="FileReport"/>.</returns>
-        Task<VTAnalysis> RescanFile(string id, CancellationToken cancellationToken = default);
+        Task<VTAnalysis> RescanFileAsync(string id, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Retrieves the report for a file using its identifier.
@@ -64,7 +64,7 @@ namespace VT.NET.Endpoints
         /// <param name="cursor">A cursor for pagination, if applicable.</param>
         /// <param name="cancellationToken">A cancellation token to cancel the operation.</param>
         /// <returns>A task representing the asynchronous comment retrieval operation, with a result of type <see cref="VTPagedResponse{Comment}"/>.</returns>
-        Task<VTPagedResponse<Comment>> GetFileComments(string id, int limit = 10, string cursor = null, CancellationToken cancellationToken = default);
+        Task<VTPagedResponse<Comment>> GetFileCommentsAsync(string id, int limit = 10, string cursor = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Adds a comment to a file in the VirusTotal service.
@@ -73,6 +73,6 @@ namespace VT.NET.Endpoints
         /// <param name="comment">The text of the comment to add.</param>
         /// <param name="cancellationToken">A cancellation token to cancel the operation.</param>
         /// <returns>A task representing the asynchronous comment addition operation, with a result of type <see cref="Comment"/>.</returns>
-        Task<Comment> AddFileComment(string id, string comment, CancellationToken cancellationToken);
+        Task<Comment> AddFileCommentAsync(string id, string comment, CancellationToken cancellationToken = default);
     }
 }

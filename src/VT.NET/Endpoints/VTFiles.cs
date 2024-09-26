@@ -100,13 +100,12 @@ namespace VT.NET.Endpoints
         /// <param name="id">The identifier of the file to rescan.</param>
         /// <param name="cancellationToken">A cancellation token to cancel the operation.</param>
         /// <returns>A task representing the asynchronous rescan operation, with a result of type <see cref="FileReport"/>.</returns>
-
-        public async Task<VTAnalysis> RescanFile(string id, CancellationToken cancellationToken = default)
+        public async Task<VTAnalysis> RescanFileAsync(string id, CancellationToken cancellationToken = default)
         {
             var validationResult = _hashValidator.Validate(id);
             validationResult.ThrowIfAny();
 
-            var response = await Self.GetAsync<VTResponse<VTAnalysis>>($"files/{id}/analyse", cancellationToken);
+            var response = await Self.GetAsync<VTResponse<VTAnalysis>>($"files/{id}/analyse", cancellationToken).ConfigureAwait(false);
             return response.Data;
         }
 
@@ -121,7 +120,7 @@ namespace VT.NET.Endpoints
             var validationResult = _hashValidator.Validate(id);
             validationResult.ThrowIfAny();
 
-            var response = await Self.GetAsync<VTResponse<FileReport>>($"files/{id}", cancellationToken);
+            var response = await Self.GetAsync<VTResponse<FileReport>>($"files/{id}", cancellationToken).ConfigureAwait(false);
             return response.Data;
         }
 
@@ -133,12 +132,12 @@ namespace VT.NET.Endpoints
         /// <param name="cursor">A cursor for pagination, if applicable.</param>
         /// <param name="cancellationToken">A cancellation token to cancel the operation.</param>
         /// <returns>A task representing the asynchronous comment retrieval operation, with a result of type <see cref="VTPagedResponse{Comment}"/>.</returns>
-        public async Task<VTPagedResponse<Comment>> GetFileComments(string id, int limit = 10, string cursor = null, CancellationToken cancellationToken = default)
+        public async Task<VTPagedResponse<Comment>> GetFileCommentsAsync(string id, int limit = 10, string cursor = null, CancellationToken cancellationToken = default)
         {
             var validationResult = _hashValidator.Validate(id);
             validationResult.ThrowIfAny();
 
-            return await Self.GetAsync<VTPagedResponse<Comment>>(string.IsNullOrWhiteSpace(cursor) ? $"files/{id}/comments?limit={limit}" : $"files/{id}/comments?limit={limit}&cursor={cursor}", cancellationToken);
+            return await Self.GetAsync<VTPagedResponse<Comment>>(string.IsNullOrWhiteSpace(cursor) ? $"files/{id}/comments?limit={limit}" : $"files/{id}/comments?limit={limit}&cursor={cursor}", cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -148,7 +147,7 @@ namespace VT.NET.Endpoints
         /// <param name="comment">The text of the comment to add.</param>
         /// <param name="cancellationToken">A cancellation token to cancel the operation.</param>
         /// <returns>A task representing the asynchronous comment addition operation, with a result of type <see cref="Comment"/>.</returns>
-        public async Task<Comment> AddFileComment(string id, string comment, CancellationToken cancellationToken)
+        public async Task<Comment> AddFileCommentAsync(string id, string comment, CancellationToken cancellationToken = default)
         {
             var validationResult = _hashValidator.Validate(id);
             validationResult.ThrowIfAny();
@@ -156,7 +155,7 @@ namespace VT.NET.Endpoints
             var json = JsonSerializer.Serialize(new VTResponse<CreateComment>(new CreateComment(comment)), new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
             using (var content = new StringContent(json))
             {
-                var response = await Self.PostAsync<VTResponse<Comment>>($"files/{id}/comments", content, cancellationToken);
+                var response = await Self.PostAsync<VTResponse<Comment>>($"files/{id}/comments", content, cancellationToken).ConfigureAwait(false);
                 return response.Data;
             }
         }
@@ -192,7 +191,7 @@ namespace VT.NET.Endpoints
 
         private async Task<string> GetUploadUrlAsync(CancellationToken cancellationToken)
         {
-            var result = await Self.GetAsync<VTResponse<string>>("files/upload_url", cancellationToken);
+            var result = await Self.GetAsync<VTResponse<string>>("files/upload_url", cancellationToken).ConfigureAwait(false);
             return result.Data;
         }
     }
