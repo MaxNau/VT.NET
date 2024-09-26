@@ -64,9 +64,9 @@ jobs:
       if: env.proceed == 'true'
       run: dotnet pack ./src/VT.NET/VT.NET.csproj --configuration Release --output ./nupkg /p:Version=${{ env.version }}
 
-   # - name: Publish VT.NET
-   #   if: steps.pack_vt.outcome == 'success'
-   #   run: dotnet nuget push ./nupkg/VTNet.*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
+    - name: Publish VT.NET
+      if: steps.pack_vt.outcome == 'success'
+      run: dotnet nuget push ./nupkg/VTNet.*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
 
 ######## VT.NET.DependencyInjection.Extensions
 
