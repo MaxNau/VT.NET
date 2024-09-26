@@ -37,6 +37,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\VT.NET.xml</DocumentationFile>
     <Version>$(VersionPrefix)-$(VersionSuffix)</Version>
+    <PackageId>VTNet</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
