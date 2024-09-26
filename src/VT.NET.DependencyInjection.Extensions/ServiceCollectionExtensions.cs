@@ -9,7 +9,9 @@ namespace VT.NET.DependencyInjection.Extensions
 {
     public static class ServiceCollectionExtensions
     {
+        #if NET5_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER
         private static readonly int DefaultPooledConnectionLifetimeInMinutes = 2;
+        #endif
 
         public static IServiceCollection AddVTFilesClient(this IServiceCollection services, string apiKey, string apiUrl = "https://api.materialsproject.org",
             int pooledConnectionLifetimeInMinutes = 2)
@@ -17,10 +19,10 @@ namespace VT.NET.DependencyInjection.Extensions
             return RegisterVTFilesClient(services, apiKey, apiUrl, pooledConnectionLifetimeInMinutes);
         }
 
-        public static IServiceCollection AddMaterialsProjectClient(this IServiceCollection services, IConfiguration configuration,
+        public static IServiceCollection AddVTFilesClient(this IServiceCollection services, IConfiguration configuration,
            int pooledConnectionLifetimeInMinutes = 2)
         {
-            var materialsProjectConfig = configuration.GetSection(VTConfiguration.VTConfigurationSectionName)
+            var vtConfiguration = configuration.GetSection(VTConfiguration.VTConfigurationSectionName)
                 .Get<VTConfiguration>();
 
             return RegisterVTFilesClient(services, configuration: configuration, pooledConnectionLifetimeInMinutes: pooledConnectionLifetimeInMinutes);
