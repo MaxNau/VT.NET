@@ -13,7 +13,7 @@ namespace VT.NET.Utility
     /// and offers both asynchronous and synchronous methods for generating hash values 
     /// based on the specified algorithm.
     /// </remarks>
-    public class FileHasher
+    public class FileHasher : IFileHasher, IAsyncFileHasher
     {
         private readonly IHashAlgorithmFactory _hashAlgorithmFactory;
 

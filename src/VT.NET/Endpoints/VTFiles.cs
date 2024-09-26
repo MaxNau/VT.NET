@@ -5,7 +5,6 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using VT.NET.Constants;
-using VT.NET.Http;
 using VT.NET.Responses;
 using VT.NET.Responses.Files;
 using VT.NET.Responses.Files.Comments;
@@ -22,7 +21,8 @@ namespace VT.NET.Endpoints
     /// and allows users to upload files, rescan files, and retrieve reports and comments 
     /// related to files in the VirusTotal service.
     /// </remarks>
-    public class VTFiles : RestClient, IVTFiles
+    /// 
+    public class VTFiles : VTEndpoint, IVTFiles
     {
         private readonly IValidator<string> _vtFileValidator;
         private readonly IValidator<Stream> _vtStreamValidator;
@@ -33,14 +33,12 @@ namespace VT.NET.Endpoints
         /// </summary>
         /// <param name="httpClient">The HTTP client used for making requests to the VirusTotal API.</param>
         /// <param name="apiKey">An optional API key for authenticating requests with the VirusTotal service.</param>
-        public VTFiles(HttpClient httpClient, string apiKey = null) : base(httpClient)
+        public VTFiles(HttpClient httpClient, string apiKey = null) : base(httpClient, apiKey)
         {
             var validatorFactory = new ValidatorFactory();
             _vtFileValidator = validatorFactory.Get<string>(typeof(VTFileValidator));
             _vtStreamValidator = validatorFactory.Get<Stream>(typeof(StreamValidator));
             _hashValidator = validatorFactory.Get<string>(typeof(FileHashValidator));
-
-            AddDefaultRequestHeader(VTHeaderNames.ApiKey, apiKey);
         }
 
         /// <summary>

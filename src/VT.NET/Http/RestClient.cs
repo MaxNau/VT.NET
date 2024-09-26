@@ -29,6 +29,16 @@ namespace VT.NET.Http
         public RestClient(HttpClient httpClient)
         {
             _httpClient = httpClient;
+            FixBaseAddress(_httpClient);
+        }
+
+        /// <summary>
+        /// BaseAddress
+        /// </summary>
+        protected Uri BaseAddress
+        {
+            get { return _httpClient.BaseAddress; }
+            set { _httpClient.BaseAddress = value; }
         }
 
         internal IRestClient Self => this;
@@ -90,6 +100,14 @@ namespace VT.NET.Http
             }
 
             return JsonSerializer.Deserialize<T>(contentAsString, _jsonSerializerOptions);
+        }
+
+        private void FixBaseAddress(HttpClient httpClient)
+        {
+            if (!httpClient.BaseAddress.OriginalString.EndsWith("/"))
+            {
+                httpClient.BaseAddress = new Uri(httpClient.BaseAddress.OriginalString + "/");
+            }
         }
     }
 }
