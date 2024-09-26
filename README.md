@@ -1,6 +1,6 @@
 # VT.NET - VirusTotal API Client Library for .NET
 
-A simple and easy-to-use C# client library for interacting with the [VirusTotal API](https://www.virustotal.com/reference/overview). This library simplifies the process of sending files, URLs, and hashes for analysis, as well as retrieving analysis results.
+A simple and easy-to-use C# client library for interacting with the [VirusTotal API v3](https://www.virustotal.com/reference/overview). This library simplifies the process of sending files, URLs, and hashes for analysis, as well as retrieving analysis results.
 
 ## Features
 
