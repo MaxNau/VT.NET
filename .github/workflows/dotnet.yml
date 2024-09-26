@@ -48,9 +48,6 @@ jobs:
           echo "proceed=true" >> $GITHUB_ENV  # Proceed with packing and publishing
         fi
         
-    - name: Configure NuGet Source
-      run: dotnet nuget add source "https://nuget.pkg.github.com/maxnau/index.json" --name github --username maxnau --password ${{ secrets.MY_GITHUB_TOKEN }} --store-password-in-clear-text
-
 ######## VT.NET
 
     - name: Restore dependencies for VT.NET
@@ -69,7 +66,7 @@ jobs:
 
     - name: Publish VT.NET
       if: steps.pack_vt.outcome == 'success'
-      run: dotnet nuget push ./nupkg/VT.NET.*.nupkg --source "github" --api-key ${{ secrets.MY_GITHUB_TOKEN }}
+      run: dotnet nuget push ./nupkg/VTNet.*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
 
 ######## VT.NET.DependencyInjection.Extensions
 
@@ -89,4 +86,4 @@ jobs:
 
     - name: Publish VT.NET.DependencyInjection.Extensions
       if: steps.pack_vt_di.outcome == 'success'
-      run: dotnet nuget push ./nupkg/VT.NET.DependencyInjection.Extensions.*.nupkg --source "github" --api-key ${{ secrets.MY_GITHUB_TOKEN }}
+      run: dotnet nuget push ./nupkg/VTNet.DependencyInjection.Extensions.*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
