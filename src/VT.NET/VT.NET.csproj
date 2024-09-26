@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>VirusTotal .NET client</Title>
+    <Authors>Maksym Naumov</Authors>
+    <Description>VirusTotal .NET client for API v3</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>VirusTotal, VT, Virus Total, MalwareScanning, Security, VirusTotalAPI</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/MaxNau/VT.NET</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MaxNau/VT.NET</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <VersionSuffix>alpha</VersionSuffix>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <InternalsVisibleTo Include="VT.NET.DependencyInjection.Extensions" PublicKey="" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\VT.NET.xml</DocumentationFile>
+    <Version>$(VersionPrefix)-$(VersionSuffix)</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.4" />
+  </ItemGroup>
+
+</Project>

@@ -2,6 +2,9 @@ name: .NET
 
 on:
   push:
+    tags:
+      - 'v*.*.*'  # Trigger on version tags, e.g., v1.0.0
+      - 'v*.*.*-*' # Trigger on version tags, e.g., v1.0.0-beta
     branches: [ "main", "develop" ]
   pull_request:
     branches: [ "main" ]
@@ -17,9 +20,73 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+
+    - name: Extract Version
+      id: extract_version
+      run: |
+        echo "GITHUB_REF: ${GITHUB_REF}"
+        if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "Version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_ENV
+        else
+          echo "No valid version found."
+          echo "version=" >> $GITHUB_ENV
+        fi
+
+    - name: Validate Version
+      id: validate_version
+      run: |
+        if [[ -z "${{ env.version }}" ]]; then
+          echo "No valid version found."
+          echo "proceed=false" >> $GITHUB_ENV
+        elif [[ ! "${{ env.version }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?$ ]]; then
+          echo "Error: Version format is invalid. Should be in the format 1.0.0, 1.0.0-beta"
+          echo "proceed=false" >> $GITHUB_ENV
+        else
+          echo "Version is valid: ${{ env.version }}"
+          echo "proceed=true" >> $GITHUB_ENV  # Proceed with packing and publishing
+        fi
+        
+    - name: Configure NuGet Source
+      run: dotnet nuget add source "https://nuget.pkg.github.com/maxnau/index.json" --name github --username maxnau --password ${{ secrets.MY_GITHUB_TOKEN }} --store-password-in-clear-text
+
+######## VT.NET
+
+    - name: Restore dependencies for VT.NET
+      run: dotnet restore ./src/VT.NET/VT.NET.csproj
+      
+    - name: Build VT.NET
+      run: dotnet build ./src/VT.NET/VT.NET.csproj --no-restore --configuration Release
+      
+    - name: Test VT.NET
+      run: dotnet test ./src/VT.NET/VT.NET.csproj --no-build --configuration Release --verbosity normal
+    
+    - name: Pack VT.NET
+      id: pack_vt
+      if: env.proceed == 'true'
+      run: dotnet pack ./src/VT.NET/VT.NET.csproj --configuration Release --output ./nupkg /p:Version=${{ env.version }}
+
+    - name: Publish VT.NET
+      if: steps.pack_vt.outcome == 'success'
+      run: dotnet nuget push ./nupkg/VT.NET.*.nupkg --source "github" --api-key ${{ secrets.MY_GITHUB_TOKEN }}
+
+######## VT.NET.DependencyInjection.Extensions
+
+    - name: Restore dependencies for VT.NET.DependencyInjection.Extensions
+      run: dotnet restore ./src/VT.NET.DependencyInjection.Extensions/VT.NET.DependencyInjection.Extensions.csproj
+      
+    - name: Build VT.NET.DependencyInjection.Extensions
+      run: dotnet build ./src/VT.NET.DependencyInjection.Extensions/VT.NET.DependencyInjection.Extensions.csproj --no-restore --configuration Release
+      
+    - name: Test VT.NET.DependencyInjection.Extensions
+      run: dotnet test ./src/VT.NET.DependencyInjection.Extensions/VT.NET.DependencyInjection.Extensions.csproj --no-build --configuration Release --verbosity normal
+    
+    - name: Pack VT.NET.DependencyInjection.Extensions
+      id: pack_vt_di
+      if: env.proceed == 'true'
+      run: dotnet pack ./src/VT.NET.DependencyInjection.Extensions/VT.NET.DependencyInjection.Extensions.csproj --configuration Release --output ./nupkg /p:Version=${{ env.version }}
+
+    - name: Publish VT.NET.DependencyInjection.Extensions
+      if: steps.pack_vt_di.outcome == 'success'
+      run: dotnet nuget push ./nupkg/VT.NET.DependencyInjection.Extensions.*.nupkg --source "github" --api-key ${{ secrets.MY_GITHUB_TOKEN }}
