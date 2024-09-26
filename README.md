@@ -12,6 +12,14 @@ A simple and easy-to-use C# client library for interacting with the [VirusTotal 
 
 ### Installation
 
+Install VTNet DI Extensions that includes VTNet
+
+[![NuGet](https://img.shields.io/nuget/v/VTNet.DependencyInjection.Extensions.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/VTNet.DependencyInjection.Extensions/)
+
+or VTNet separatly
+
+[![NuGet](https://img.shields.io/nuget/v/VTNet.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/VTNet/)
+
 ### Usage
 
 For DI-ready solutions use `VT.NET.DependencyInjection.Extensions` package which provides extensions for `ServiceCollection`:
