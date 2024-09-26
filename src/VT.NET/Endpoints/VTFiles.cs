@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -119,8 +118,7 @@ namespace VT.NET.Endpoints
 
                     if (!string.IsNullOrEmpty(password))
                     {
-                        var base64Password = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
-                        var passwordContent = new StringContent(base64Password);
+                        var passwordContent = new StringContent(password);
                         passwordContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                         {
                             Name = "password"
