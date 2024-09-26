@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -30,7 +31,7 @@ namespace VT.NET.Endpoints
             AddDefaultRequestHeader(VTHeaderNames.ApiKey, apiKey);
         }
 
-        public async Task<FileAnalysis> UploadFileAsync(string filePath, bool forceUploadUrl = false, CancellationToken cancellationToken = default)
+        public async Task<FileAnalysis> UploadFileAsync(string filePath, string password = null, bool forceUploadUrl = false, CancellationToken cancellationToken = default)
         {
             var validationResult = _vtFileValidator.Validate(filePath);
             validationResult.ThrowIfAny();
@@ -43,13 +44,13 @@ namespace VT.NET.Endpoints
                 var endpoint = fileStream.Length == SupportedFileSizes.RegularFileSizeLimit && !forceUploadUrl
                     ? "files" : await GetUploadUrlAsync(cancellationToken).ConfigureAwait(false);
 
-                response = await UploadFileAsync<VTResponse<FileAnalysis>>(endpoint, fileStream, fileName, cancellationToken).ConfigureAwait(false);
+                response = await UploadFileAsync<VTResponse<FileAnalysis>>(endpoint, fileStream, fileName, password, cancellationToken).ConfigureAwait(false);
             }
 
             return response.Data;
         }
 
-        public async Task<FileAnalysis> UploadFileAsync<T>(Stream stream, string filename, bool forceUploadUrl = false, CancellationToken cancellationToken = default)
+        public async Task<FileAnalysis> UploadFileAsync<T>(Stream stream, string filename, string password = null, bool forceUploadUrl = false, CancellationToken cancellationToken = default)
         {
             var validationResult = _vtStreamValidator.Validate(stream);
             validationResult.ThrowIfAny();
@@ -58,7 +59,7 @@ namespace VT.NET.Endpoints
             var endpoint = stream.Length == SupportedFileSizes.RegularFileSizeLimit && !forceUploadUrl
                     ? "files" : await GetUploadUrlAsync(cancellationToken).ConfigureAwait(false);
 
-            response = await UploadFileAsync<VTResponse<FileAnalysis>>(endpoint, stream, filename, cancellationToken).ConfigureAwait(false);
+            response = await UploadFileAsync<VTResponse<FileAnalysis>>(endpoint, stream, filename, password, cancellationToken).ConfigureAwait(false);
 
             return response.Data;
         }
@@ -102,7 +103,7 @@ namespace VT.NET.Endpoints
             }
         }
 
-        private async Task<T> UploadFileAsync<T>(string requestUri, Stream stream, string filename, CancellationToken cancellationToken)
+        private async Task<T> UploadFileAsync<T>(string requestUri, Stream stream, string filename, string password = null, CancellationToken cancellationToken = default)
         {
             using (var formDataContent = new MultipartFormDataContent())
             {
@@ -115,6 +116,17 @@ namespace VT.NET.Endpoints
                     };
 
                     formDataContent.Add(streamContent);
+
+                    if (!string.IsNullOrEmpty(password))
+                    {
+                        var base64Password = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
+                        var passwordContent = new StringContent(base64Password);
+                        passwordContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                        {
+                            Name = "password"
+                        };
+                        formDataContent.Add(passwordContent);
+                    }
 
                     return await Self.PostAsync<T>(requestUri, formDataContent, cancellationToken).ConfigureAwait(false);
                 }

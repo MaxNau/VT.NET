@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using VT.NET.Exceptions;
 
 namespace VT.NET.Http
 {
@@ -63,6 +64,13 @@ namespace VT.NET.Http
         private async Task<T> GetResponseContentAsync<T>(HttpResponseMessage httpResponseMessage)
         {
             var contentAsString = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new ApiException((int)httpResponseMessage.StatusCode,
+                    $"API request failed: {httpResponseMessage.ReasonPhrase}",
+                    contentAsString);
+            }
 
             return JsonSerializer.Deserialize<T>(contentAsString, _jsonSerializerOptions);
         }

@@ -10,8 +10,8 @@ namespace VT.NET.Endpoints
 {
     public interface IVTFiles
     {
-        Task<FileAnalysis> UploadFileAsync(string filePath, bool forceUploadUrl = false, CancellationToken cancellationToken = default);
-        Task<FileAnalysis> UploadFileAsync<T>(Stream stream, string filename, bool forceUploadUrl = false, CancellationToken cancellationToken = default);
+        Task<FileAnalysis> UploadFileAsync(string filePath, string password = null, bool forceUploadUrl = false, CancellationToken cancellationToken = default);
+        Task<FileAnalysis> UploadFileAsync<T>(Stream stream, string filename, string password, bool forceUploadUrl = false, CancellationToken cancellationToken = default);
         Task<FileAnalysis> RescanFile(string id, CancellationToken cancellationToken = default);
         Task<FileReport> GetFileReportAsync(string id, CancellationToken cancellationToken = default);
         Task<VTPagedResponse<Comment>> GetFileComments(string id, int limit = 10, string cursor = null, CancellationToken cancellationToken = default);
