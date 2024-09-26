@@ -13,7 +13,7 @@ namespace VT.NET.DependencyInjection.Extensions
         private static readonly int DefaultPooledConnectionLifetimeInMinutes = 2;
         #endif
 
-        public static IServiceCollection AddVTFilesClient(this IServiceCollection services, string apiKey, string apiUrl = "https://api.materialsproject.org",
+        public static IServiceCollection AddVTFilesClient(this IServiceCollection services, string apiKey, string apiUrl = "https://www.virustotal.com/api/v3/",
             int pooledConnectionLifetimeInMinutes = 2)
         {
             return RegisterVTFilesClient(services, apiKey, apiUrl, pooledConnectionLifetimeInMinutes);
@@ -28,7 +28,7 @@ namespace VT.NET.DependencyInjection.Extensions
             return RegisterVTFilesClient(services, configuration: configuration, pooledConnectionLifetimeInMinutes: pooledConnectionLifetimeInMinutes);
         }
 
-        private static IServiceCollection RegisterVTFilesClient(IServiceCollection services, string apiKey = null, string apiUrl = "https://api.materialsproject.org",
+        private static IServiceCollection RegisterVTFilesClient(IServiceCollection services, string apiKey = null, string apiUrl = "https://www.virustotal.com/api/v3/",
             int pooledConnectionLifetimeInMinutes = 2, IConfiguration configuration = null)
         {
             if (configuration != null)

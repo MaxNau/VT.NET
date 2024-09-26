@@ -3,6 +3,13 @@ using System.Text.Json.Serialization;
 
 namespace VT.NET.Responses.Files
 {
+    /// <summary>
+    /// Represents the links associated with a VirusTotal API response.
+    /// </summary>
+    /// <remarks>
+    /// The <see cref="Links"/> class contains URIs that provide access to related resources
+    /// in the VirusTotal API.
+    /// </remarks>
     public class Links
     {
         internal Links() { }
@@ -12,6 +19,10 @@ namespace VT.NET.Responses.Files
         {
             Self = self;
         }
+
+        /// <summary>
+        /// The URI that points to the resource itself.
+        /// </summary>
         public Uri Self { get; }
     }
 }

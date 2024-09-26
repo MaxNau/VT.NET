@@ -7,6 +7,13 @@ using VT.NET.Exceptions;
 
 namespace VT.NET.Http
 {
+    /// <summary>
+    /// Represents a REST client for making HTTP requests to an API.
+    /// </summary>
+    /// <remarks>
+    /// The <see cref="RestClient"/> class provides methods to perform GET and POST requests,
+    /// along with handling common response patterns such as deserialization and error handling.
+    /// </remarks>
     public class RestClient : IRestClient
     {
         private readonly HttpClient _httpClient;
@@ -15,6 +22,10 @@ namespace VT.NET.Http
             PropertyNameCaseInsensitive = true
         };
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RestClient"/> class with the specified <see cref="HttpClient"/>.
+        /// </summary>
+        /// <param name="httpClient">The <see cref="HttpClient"/> to be used for making requests.</param>
         public RestClient(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -34,6 +45,12 @@ namespace VT.NET.Http
             return await GetResponseContentAsync<T>(response).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// Adds a default request header to the <see cref="_httpClient"/>.
+        /// </summary>
+        /// <param name="headerName">The name of the header to add.</param>
+        /// <param name="headerValue">The value of the header to add.</param>
+        /// <exception cref="ArgumentNullException">Thrown if the header name or value is null or empty.</exception>
         protected void AddDefaultRequestHeader(string headerName, string headerValue)
         {
             if (string.IsNullOrWhiteSpace(headerName))
