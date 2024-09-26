@@ -26,6 +26,8 @@ namespace VT.NET.Endpoints
             _vtFileValidator = validatorFactory.Get<string>(typeof(VTFileValidator));
             _vtStreamValidator = validatorFactory.Get<Stream>(typeof(StreamValidator));
             _hashValidator = validatorFactory.Get<string>(typeof(FileHashValidator));
+
+            AddDefaultRequestHeader(VTHeaderNames.ApiKey, apiKey);
         }
 
         public async Task<FileAnalysis> UploadFileAsync(string filePath, bool forceUploadUrl = false, CancellationToken cancellationToken = default)
