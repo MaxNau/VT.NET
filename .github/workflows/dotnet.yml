@@ -19,15 +19,7 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: Configure NuGet Source
-      run: dotnet nuget add source "https://nuget.pkg.github.com/maxnau/index.json" --name github --username maxnau --password ${{ secrets.MY_GITHUB_TOKEN }} --store-password-in-clear-text
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-    
+
     - name: Extract Version
       id: extract_version
       run: |
@@ -55,11 +47,45 @@ jobs:
           echo "proceed=true" >> $GITHUB_ENV  # Proceed with packing and publishing
         fi
         
-    - name: Pack the NuGet package
-      id: pack
-      if: env.proceed == 'true'
-      run: dotnet pack --configuration Release --output ./nupkg /p:Version=${{ env.version }}
+    - name: Configure NuGet Source
+      run: dotnet nuget add source "https://nuget.pkg.github.com/maxnau/index.json" --name github --username maxnau --password ${{ secrets.MY_GITHUB_TOKEN }} --store-password-in-clear-text
 
-    - name: Publish to GitHub Packages
-      if: steps.pack.outcome == 'success'  # Only run this step if packing succeeded
-      run: dotnet nuget push ./nupkg/*.nupkg --source "github" --api-key ${{ secrets.MY_GITHUB_TOKEN }}
+######## VT.NET
+
+    - name: Restore dependencies for VT.NET
+      run: dotnet restore ./src/VT.NET/VT.NET.csproj
+      
+    - name: Build VT.NET
+      run: dotnet build ./src/VT.NET/VT.NET.csproj --no-restore --configuration Release
+      
+    - name: Test VT.NET
+      run: dotnet test ./src/VT.NET/VT.NET.csproj --no-build --configuration Release --verbosity normal
+    
+    - name: Pack VT.NET
+      id: pack_vt
+      if: env.proceed == 'true'
+      run: dotnet pack ./src/VT.NET/VT.NET.csproj --configuration Release --output ./nupkg /p:Version=${{ env.version }}
+
+    - name: Publish VT.NET
+      if: steps.pack_vt.outcome == 'success'
+      run: dotnet nuget push ./nupkg/VT.NET.*.nupkg --source "github" --api-key ${{ secrets.MY_GITHUB_TOKEN }}
+
+######## VT.NET.DependencyInjection.Extensions
+
+    - name: Restore dependencies for VT.NET.DependencyInjection.Extensions
+      run: dotnet restore ./src/VT.NET.DependencyInjection.Extensions/VT.NET.DependencyInjection.Extensions.csproj
+      
+    - name: Build VT.NET.DependencyInjection.Extensions
+      run: dotnet build ./src/VT.NET.DependencyInjection.Extensions/VT.NET.DependencyInjection.Extensions.csproj --no-restore --configuration Release
+      
+    - name: Test VT.NET.DependencyInjection.Extensions
+      run: dotnet test ./src/VT.NET.DependencyInjection.Extensions/VT.NET.DependencyInjection.Extensions.csproj --no-build --configuration Release --verbosity normal
+    
+    - name: Pack VT.NET.DependencyInjection.Extensions
+      id: pack_vt_di
+      if: env.proceed == 'true'
+      run: dotnet pack ./src/VT.NET.DependencyInjection.Extensions/VT.NET.DependencyInjection.Extensions.csproj --configuration Release --output ./nupkg /p:Version=${{ env.version }}
+
+    - name: Publish VT.NET.DependencyInjection.Extensions
+      if: steps.pack_vt_di.outcome == 'success'
+      run: dotnet nuget push ./nupkg/VT.NET.DependencyInjection.Extensions.*.nupkg --source "github" --api-key ${{ secrets.MY_GITHUB_TOKEN }}
