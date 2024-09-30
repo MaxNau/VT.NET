@@ -2,6 +2,10 @@ name: Build VTNet
 
 on:
   push:
+    paths:
+      - 'src/VT.NET/**'
+      - 'README.md'
+      - 'LICENSE'
     branches: [ "main", "develop" ]
   pull_request:
     branches: [ "main" ]
