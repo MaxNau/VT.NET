@@ -56,10 +56,8 @@ jobs:
     - name: Pack
       id: pack_vt
       if: env.proceed == 'true'
-      run: echo "packed_version=${{ env.version }}" >> $GITHUB_ENV
-      #run: dotnet pack ./src/VT.NET.DependencyInjection.Extensions/VT.NET.DependencyInjection.Extensions.csproj --configuration Release --output ./nupkg /p:Version=${{ env.version }}
+      run: dotnet pack ./src/VT.NET.DependencyInjection.Extensions/VT.NET.DependencyInjection.Extensions.csproj --configuration Release --output ./nupkg /p:Version=${{ env.version }}
 
     - name: Publish
       if: steps.pack_vt.outcome == 'success'
-      run: echo "published_version=${{ env.version }}" >> $GITHUB_ENV
-      #run: dotnet nuget push ./nupkg/VTNet.DependencyInjection.Extensions.*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
+      run: dotnet nuget push ./nupkg/VTNet.DependencyInjection.Extensions.*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
