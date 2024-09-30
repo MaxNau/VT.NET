@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using VT.NET.Responses.Analysis;
 
 namespace VT.NET.Responses.Files.FileReport
 {
@@ -8,15 +9,15 @@ namespace VT.NET.Responses.Files.FileReport
     /// from the VirusTotal API response.
     /// </summary>
     /// <remarks>
-    /// The <see cref="Attributes"/> class includes various statistics and metadata related 
+    /// The <see cref="FileAttributes"/> class includes various statistics and metadata related 
     /// to the analyzed file, such as hashes, submission dates, and analysis results.
     /// </remarks>
-    public class Attributes
+    public class FileAttributes
     {
-        internal Attributes() { }
+        internal FileAttributes() { }
 
         [JsonConstructor]
-        internal Attributes(string sha1, long lastModificationDate, List<string> names,
+        internal FileAttributes(string sha1, long lastModificationDate, List<string> names,
             string md5, long size, long lastAnalysisDate, string magic, string tlsh,
             string magika, List<object> tags, string typeDescription, long timesSubmitted,
             List<object> typeTags, long reputation, LastAnalysisStats lastAnalysisStats,

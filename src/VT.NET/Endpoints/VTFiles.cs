@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using VT.NET.Constants;
 using VT.NET.Responses;
-using VT.NET.Responses.Files;
+using VT.NET.Responses.Analysis;
 using VT.NET.Responses.Files.Comments;
 using VT.NET.Responses.Files.FileReport;
 using VT.NET.Validators;

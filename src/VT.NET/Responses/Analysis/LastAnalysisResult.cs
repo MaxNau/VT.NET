@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace VT.NET.Responses.Files.FileReport
+namespace VT.NET.Responses.Analysis
 {
     /// <summary>
     /// Represents the result of the last analysis conducted by a specific engine in VirusTotal.
@@ -16,7 +16,7 @@ namespace VT.NET.Responses.Files.FileReport
 
         [JsonConstructor]
         internal LastAnalysisResult(string method, string engineName, string engineVersion,
-            long engineUpdate, string category, object result)
+            string engineUpdate, string category, object result)
         {
             Method = method;
             EngineName = engineName;
@@ -44,7 +44,7 @@ namespace VT.NET.Responses.Files.FileReport
         /// <summary>
         /// The update timestamp of the engine.
         /// </summary>
-        public long EngineUpdate { get; }
+        public string EngineUpdate { get; }
 
         /// <summary>
         /// The category of the analysis result (e.g., malicious, clean).

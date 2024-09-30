@@ -19,7 +19,8 @@ namespace VT.NET.Http
         private readonly HttpClient _httpClient;
         private readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
         };
 
         /// <summary>
@@ -104,7 +105,7 @@ namespace VT.NET.Http
 
         private void FixBaseAddress(HttpClient httpClient)
         {
-            if (!httpClient.BaseAddress.OriginalString.EndsWith("/"))
+            if (httpClient.BaseAddress != null && !httpClient.BaseAddress.OriginalString.EndsWith("/"))
             {
                 httpClient.BaseAddress = new Uri(httpClient.BaseAddress.OriginalString + "/");
             }
