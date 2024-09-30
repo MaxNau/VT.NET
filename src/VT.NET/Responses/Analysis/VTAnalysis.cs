@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Serialization;
+using VT.NET.Responses.Files;
 
-namespace VT.NET.Responses.Files
+namespace VT.NET.Responses.Analysis
 {
     /// <summary>
     /// Represents the analysis of a file, URL etc in the VirusTotal service.

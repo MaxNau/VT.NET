@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace VT.NET.Responses.Files.FileReport
+namespace VT.NET.Responses.Analysis
 {
     /// <summary>
     /// Represents the statistics of the last analysis conducted on a file in VirusTotal.

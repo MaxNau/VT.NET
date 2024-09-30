@@ -4,7 +4,7 @@ using System.IO;
 using VT.NET.Responses.Files.FileReport;
 using VT.NET.Responses.Files.Comments;
 using VT.NET.Responses;
-using VT.NET.Responses.Files;
+using VT.NET.Responses.Analysis;
 
 namespace VT.NET.Endpoints
 {

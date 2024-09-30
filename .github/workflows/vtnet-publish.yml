@@ -1,0 +1,65 @@
+name: publish VTNet
+
+on:
+  push:
+    tags:
+      - 'v-vtnet-[0-9]*.[0-9]*.[0-9]*'  # Trigger on version tags, e.g., v-vtnet-1.0.0
+      - 'v-vtnet-[0-9]*.[0-9]*.[0-9]*-*' # Trigger on version tags, e.g., v-vtnet-1.0.0-beta
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    
+    - name: Extract Version
+      id: extract_version
+      run: |
+        echo "GITHUB_REF: ${GITHUB_REF}"
+        if [[ "${GITHUB_REF}" == refs/tags/v-vtnet-* ]]; then
+          VERSION=${GITHUB_REF#refs/tags/v-vtnet-}
+          echo "Version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_ENV
+        else
+          echo "No valid version found."
+          echo "version=" >> $GITHUB_ENV
+        fi
+
+    - name: Validate Version
+      id: validate_version
+      run: |
+        if [[ -z "${{ env.version }}" ]]; then
+          echo "No valid version found."
+          echo "proceed=false" >> $GITHUB_ENV
+        elif [[ ! "${{ env.version }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?$ ]]; then
+          echo "Error: Version format is invalid. Should be in the format 1.0.0, 1.0.0-beta"
+          echo "proceed=false" >> $GITHUB_ENV
+        else
+          echo "Version is valid: ${{ env.version }}"
+          echo "proceed=true" >> $GITHUB_ENV  # Proceed with packing and publishing
+        fi
+        
+    - name: Restore dependencies
+      run: dotnet restore ./src/VT.NET/VT.NET.csproj
+      
+    - name: Build
+      run: dotnet build ./src/VT.NET/VT.NET.csproj --no-restore --configuration Release
+      
+    - name: Test
+      run: dotnet test ./src/VT.NET/VT.NET.csproj --no-build --configuration Release --verbosity normal
+    
+    - name: Pack
+      id: pack_vt
+      if: env.proceed == 'true'
+      run: echo "packed_version=${{ env.version }}" >> $GITHUB_ENV
+      #run: dotnet pack ./src/VT.NET/VT.NET.csproj --configuration Release --output ./nupkg /p:Version=${{ env.version }}
+
+    - name: Publish
+      if: steps.pack_vt.outcome == 'success'
+      run: echo "published_version=${{ env.version }}" >> $GITHUB_ENV
+      #run: dotnet nuget push ./nupkg/VTNet.*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}

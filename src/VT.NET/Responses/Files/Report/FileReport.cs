@@ -14,7 +14,7 @@ namespace VT.NET.Responses.Files.FileReport
         internal FileReport() { }
 
         [JsonConstructor]
-        internal FileReport(string id, string type, Links links, Attributes attributes)
+        internal FileReport(string id, string type, Links links, FileAttributes attributes)
             : base(type, id, links)
         {
             Attributes = attributes;
@@ -26,6 +26,6 @@ namespace VT.NET.Responses.Files.FileReport
         /// <value>
         /// An <see cref="Attributes"/> object that includes various statistics and details regarding the file's analysis results.
         /// </value>
-        public Attributes Attributes { get; }
+        public FileAttributes Attributes { get; }
     }
 }
