@@ -56,10 +56,10 @@ jobs:
     - name: Pack
       id: pack_vt
       if: env.proceed == 'true'
-        echo "packed_version=${{ env.version }}" >> $GITHUB_ENV
+      run: echo "packed_version=${{ env.version }}" >> $GITHUB_ENV
       #run: dotnet pack ./src/VT.NET/VT.NET.csproj --configuration Release --output ./nupkg /p:Version=${{ env.version }}
 
     - name: Publish
       if: steps.pack_vt.outcome == 'success'
-        echo "published_version=${{ env.version }}" >> $GITHUB_ENV
+      run: echo "published_version=${{ env.version }}" >> $GITHUB_ENV
       #run: dotnet nuget push ./nupkg/VTNet.*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
