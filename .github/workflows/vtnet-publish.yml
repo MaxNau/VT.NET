@@ -3,8 +3,8 @@ name: publish VTNet
 on:
   push:
     tags:
-      - 'v-vtnet-*.*.*'  # Trigger on version tags, e.g., v1.0.0
-      - 'v-vtnet-*.*.*-*' # Trigger on version tags, e.g., v1.0.0-beta
+      - 'v-vtnet-*.*.*'  # Trigger on version tags, e.g., v-vtnet-1.0.0
+      - 'v-vtnet-*.*.*-*' # Trigger on version tags, e.g., v-vtnet-v1.0.0-beta
 jobs:
   build:
 
