@@ -1,4 +1,4 @@
-name: publish VTNet
+name: publish VTNet DI
 
 on:
   push:
