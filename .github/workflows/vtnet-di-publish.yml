@@ -3,8 +3,8 @@ name: publish VTNet DI
 on:
   push:
     tags:
-      - 'v-vtnet-di-*.*.*'  # Trigger on version tags, e.g., v-vtnet-di-1.0.0
-      - 'v-vtnet-di-*.*.*-*' # Trigger on version tags, e.g., v-vtnet-di-v1.0.0-beta
+      - 'v-vtnet-di-[0-9]*.[0-9]*.[0-9]*'  # Trigger on version tags, e.g., v-vtnet-di-1.0.0
+      - 'v-vtnet-di-[0-9]*.[0-9]*.[0-9]*-*' # Trigger on version tags, e.g., v-vtnet-di-1.0.0-beta
 jobs:
   build:
 
