@@ -46,16 +46,16 @@ For DI-ready solutions use `VT.NET.DependencyInjection.Extensions` package which
 You can use different types of clients depending on your need.
 Files client:
 ```csharp
-	builder.Services.AddVTFilesClient(configuration);
+builder.Services.AddVTFilesClient(configuration);
 ```
  URLs client:
 ```csharp
-	builder.Services.AddVTUrlsClient(configuration);
+builder.Services.AddVTUrlsClient(configuration);
 ```
 
  Or you can use All-In-One client:
 ```csharp
-	builder.Services.AddVTClient(configuration);
+builder.Services.AddVTClient(configuration);
 ```
 
 Then in classes where you will use the client inject `IVTFiles` or any other client depending on your need via constructor.
