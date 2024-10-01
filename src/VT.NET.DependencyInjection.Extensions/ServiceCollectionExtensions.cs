@@ -45,6 +45,36 @@ namespace VT.NET.DependencyInjection.Extensions
             return RegisterVTClients(services, configuration: configuration, pooledConnectionLifetimeInMinutes: pooledConnectionLifetimeInMinutes, vtClients: VTClients.Urls);
         }
 
+        public static IServiceCollection AddVTIPsClient(this IServiceCollection services, string apiKey, string apiUrl = "https://www.virustotal.com/api/v3/",
+            int pooledConnectionLifetimeInMinutes = 2)
+        {
+            ValidateParameters(apiKey, apiUrl);
+            return RegisterVTClients(services, apiKey, apiUrl, pooledConnectionLifetimeInMinutes, vtClients: VTClients.Urls);
+        }
+
+        public static IServiceCollection AddVTIPsClient(this IServiceCollection services, IConfiguration configuration,
+           int pooledConnectionLifetimeInMinutes = 2)
+        {
+            var vtConfiguration = GetVTConfiguration(configuration);
+            ValidateParameters(vtConfiguration.ApiKey, vtConfiguration.Url);
+            return RegisterVTClients(services, configuration: configuration, pooledConnectionLifetimeInMinutes: pooledConnectionLifetimeInMinutes, vtClients: VTClients.IPs);
+        }
+
+        public static IServiceCollection AddVTDomainsClient(this IServiceCollection services, string apiKey, string apiUrl = "https://www.virustotal.com/api/v3/",
+            int pooledConnectionLifetimeInMinutes = 2)
+        {
+            ValidateParameters(apiKey, apiUrl);
+            return RegisterVTClients(services, apiKey, apiUrl, pooledConnectionLifetimeInMinutes, vtClients: VTClients.Urls);
+        }
+
+        public static IServiceCollection AddVTDomainsClient(this IServiceCollection services, IConfiguration configuration,
+           int pooledConnectionLifetimeInMinutes = 2)
+        {
+            var vtConfiguration = GetVTConfiguration(configuration);
+            ValidateParameters(vtConfiguration.ApiKey, vtConfiguration.Url);
+            return RegisterVTClients(services, configuration: configuration, pooledConnectionLifetimeInMinutes: pooledConnectionLifetimeInMinutes, vtClients: VTClients.Domains);
+        }
+
         private static IServiceCollection RegisterVTClients(IServiceCollection services, string apiKey = null, string apiUrl = "https://www.virustotal.com/api/v3/",
             int pooledConnectionLifetimeInMinutes = 2, IConfiguration configuration = null, VTClients? vtClients = null)
         {
@@ -95,6 +125,24 @@ namespace VT.NET.DependencyInjection.Extensions
                         return new VTUrls(client, apiKey);
                     });
                     break;
+                case VTClients.IPs:
+                    services.AddSingleton<IVTIPs, VTIPs>(factory =>
+                    {
+                        return new VTIPs(client, apiKey);
+                    });
+                    break;
+                case VTClients.Domains:
+                    services.AddSingleton<IVTDomains, VTDomains>(factory =>
+                    {
+                        return new VTDomains(client, apiKey);
+                    });
+                    break;
+                case VTClients.Full:
+                    services.AddSingleton<IVTPublicClient, VTClient>(factory =>
+                    {
+                        return new VTClient(client, apiKey);
+                    });
+                    break;
                 default:
                     break;
              }
@@ -117,6 +165,30 @@ namespace VT.NET.DependencyInjection.Extensions
                             client.DefaultRequestHeaders.Add(VTHeaderNames.ApiKey, apiKey);
                             client.BaseAddress = new Uri(apiUrl);
                         });
+                    break;
+                case VTClients.IPs:
+                    services.AddHttpClient<IVTIPs, VTIPs>()
+                    .ConfigureHttpClient(client =>
+                    {
+                        client.DefaultRequestHeaders.Add(VTHeaderNames.ApiKey, apiKey);
+                        client.BaseAddress = new Uri(apiUrl);
+                    });
+                    break;
+                case VTClients.Domains:
+                    services.AddHttpClient<IVTDomains, VTDomains>()
+                    .ConfigureHttpClient(client =>
+                    {
+                        client.DefaultRequestHeaders.Add(VTHeaderNames.ApiKey, apiKey);
+                        client.BaseAddress = new Uri(apiUrl);
+                    });
+                    break;
+                case VTClients.Full:
+                    services.AddHttpClient<IVTPublicClient, VTClient>()
+                    .ConfigureHttpClient(client =>
+                    {
+                        client.DefaultRequestHeaders.Add(VTHeaderNames.ApiKey, apiKey);
+                        client.BaseAddress = new Uri(apiUrl);
+                    });
                     break;
                 default:
                     break;

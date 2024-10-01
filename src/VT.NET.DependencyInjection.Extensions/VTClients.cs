@@ -4,6 +4,8 @@
     {
         Full,
         Files,
-        Urls
+        Urls,
+        IPs,
+        Domains
     }
 }
