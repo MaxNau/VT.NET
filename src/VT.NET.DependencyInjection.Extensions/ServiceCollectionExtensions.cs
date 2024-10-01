@@ -49,7 +49,7 @@ namespace VT.NET.DependencyInjection.Extensions
             int pooledConnectionLifetimeInMinutes = 2)
         {
             ValidateParameters(apiKey, apiUrl);
-            return RegisterVTClients(services, apiKey, apiUrl, pooledConnectionLifetimeInMinutes, vtClients: VTClients.Urls);
+            return RegisterVTClients(services, apiKey, apiUrl, pooledConnectionLifetimeInMinutes, vtClients: VTClients.IPs);
         }
 
         public static IServiceCollection AddVTIPsClient(this IServiceCollection services, IConfiguration configuration,
@@ -64,7 +64,7 @@ namespace VT.NET.DependencyInjection.Extensions
             int pooledConnectionLifetimeInMinutes = 2)
         {
             ValidateParameters(apiKey, apiUrl);
-            return RegisterVTClients(services, apiKey, apiUrl, pooledConnectionLifetimeInMinutes, vtClients: VTClients.Urls);
+            return RegisterVTClients(services, apiKey, apiUrl, pooledConnectionLifetimeInMinutes, vtClients: VTClients.Domains);
         }
 
         public static IServiceCollection AddVTDomainsClient(this IServiceCollection services, IConfiguration configuration,
@@ -73,6 +73,21 @@ namespace VT.NET.DependencyInjection.Extensions
             var vtConfiguration = GetVTConfiguration(configuration);
             ValidateParameters(vtConfiguration.ApiKey, vtConfiguration.Url);
             return RegisterVTClients(services, configuration: configuration, pooledConnectionLifetimeInMinutes: pooledConnectionLifetimeInMinutes, vtClients: VTClients.Domains);
+        }
+
+        public static IServiceCollection AddVTClient(this IServiceCollection services, string apiKey, string apiUrl = "https://www.virustotal.com/api/v3/",
+            int pooledConnectionLifetimeInMinutes = 2)
+        {
+            ValidateParameters(apiKey, apiUrl);
+            return RegisterVTClients(services, apiKey, apiUrl, pooledConnectionLifetimeInMinutes, vtClients: VTClients.Full);
+        }
+
+        public static IServiceCollection AddVTClient(this IServiceCollection services, IConfiguration configuration,
+           int pooledConnectionLifetimeInMinutes = 2)
+        {
+            var vtConfiguration = GetVTConfiguration(configuration);
+            ValidateParameters(vtConfiguration.ApiKey, vtConfiguration.Url);
+            return RegisterVTClients(services, configuration: configuration, pooledConnectionLifetimeInMinutes: pooledConnectionLifetimeInMinutes, vtClients: VTClients.Full);
         }
 
         private static IServiceCollection RegisterVTClients(IServiceCollection services, string apiKey = null, string apiUrl = "https://www.virustotal.com/api/v3/",
