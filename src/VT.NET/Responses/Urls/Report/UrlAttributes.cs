@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using VT.NET.Responses.Files.FileReport;
 using VT.NET.Responses.Analysis;
+using System.Text.Json.Serialization;
 
 namespace VT.NET.Responses.Urls.Report
 {
@@ -10,124 +11,165 @@ namespace VT.NET.Responses.Urls.Report
     /// </summary>
     public class UrlAttributes
     {
-        /// <summary>
-        /// Gets or sets a dictionary of categories from partners categorizing the URL.
-        /// </summary>
-        public Dictionary<string, string> Categories { get; set; }
+        internal UrlAttributes() { }
+
+        [JsonConstructor]
+        internal UrlAttributes(Dictionary<string, string> categories, long firstSubmissionDate,
+            Dictionary<string, List<string>> htmlMeta, long lastAnalysisDate,
+            Dictionary<string, LastAnalysisResult> lastAnalysisResults,
+            LastAnalysisStats lastAnalysisStats, string lastFinalUrl,
+            int lastHttpResponseCode, int lastHttpResponseContentLength,
+            string lastHttpResponseContentSha256, Dictionary<string, string> lastHttpResponseCookies,
+            Dictionary<string, string> lastHttpResponseHeaders, long lastModificationDate,
+            long lastSubmissionDate, List<string> outgoingLinks, List<string> redirectionChain,
+            int reputation, List<string> tags, Dictionary<string, string> targetedBrand,
+            int timesSubmitted, string title, TotalVotes totalVotes,
+            Dictionary<string, List<Tracker>> trackers, string url)
+        {
+            Categories = categories;
+            FirstSubmissionDate = firstSubmissionDate;
+            HtmlMeta = htmlMeta;
+            LastAnalysisDate = lastAnalysisDate;
+            LastAnalysisResults = lastAnalysisResults;
+            LastAnalysisStats = lastAnalysisStats;
+            LastFinalUrl = lastFinalUrl;
+            LastHttpResponseCode = lastHttpResponseCode;
+            LastHttpResponseContentLength = lastHttpResponseContentLength;
+            LastHttpResponseContentSha256 = lastHttpResponseContentSha256;
+            LastHttpResponseCookies = lastHttpResponseCookies;
+            LastHttpResponseHeaders = lastHttpResponseHeaders;
+            LastModificationDate = lastModificationDate;
+            LastSubmissionDate = lastSubmissionDate;
+            OutgoingLinks = outgoingLinks;
+            RedirectionChain = redirectionChain;
+            Reputation = reputation;
+            Tags = tags;
+            TargetedBrand = targetedBrand;
+            TimesSubmitted = timesSubmitted;
+            Title = title;
+            TotalVotes = totalVotes;
+            Trackers = trackers;
+            Url = url;
+        }
 
         /// <summary>
-        /// Gets or sets the UTC timestamp of the first submission date.
+        /// Dictionary of categories from partners categorizing the URL.
         /// </summary>
-        public long FirstSubmissionDate { get; set; }
+        public Dictionary<string, string> Categories { get; }
 
         /// <summary>
-        /// Gets or sets a dictionary of HTML meta tags.
+        /// UTC timestamp of the first submission date.
         /// </summary>
-        public Dictionary<string, List<string>> HtmlMeta { get; set; }
+        public long FirstSubmissionDate { get; }
 
         /// <summary>
-        /// Gets or sets the UTC timestamp of the last analysis date.
+        /// Dictionary of HTML meta tags.
         /// </summary>
-        public long LastAnalysisDate { get; set; }
+        public Dictionary<string, List<string>> HtmlMeta { get; }
 
         /// <summary>
-        /// Gets or sets a dictionary of results from URL scanners.
+        /// UTC timestamp of the last analysis date.
         /// </summary>
-        public Dictionary<string, LastAnalysisResult> LastAnalysisResults { get; set; }
+        public long LastAnalysisDate { get; }
 
         /// <summary>
-        /// Gets or sets the statistics of the last analysis results.
+        /// Dictionary of results from URL scanners.
         /// </summary>
-        public LastAnalysisStats LastAnalysisStats { get; set; }
+        public Dictionary<string, LastAnalysisResult> LastAnalysisResults { get; }
 
         /// <summary>
-        /// Gets or sets the final URL if the original URL redirects.
+        /// Statistics of the last analysis results.
         /// </summary>
-        public string LastFinalUrl { get; set; }
+        public LastAnalysisStats LastAnalysisStats { get; }
 
         /// <summary>
-        /// Gets or sets the HTTP response code of the last response.
+        /// Final URL if the original URL redirects.
         /// </summary>
-        public int LastHttpResponseCode { get; set; }
+        public string LastFinalUrl { get; }
 
         /// <summary>
-        /// Gets or sets the content length of the last HTTP response.
+        /// HTTP response code of the last response.
         /// </summary>
-        public int LastHttpResponseContentLength { get; set; }
+        public int LastHttpResponseCode { get; }
 
         /// <summary>
-        /// Gets or sets the SHA256 hash of the URL response body.
+        /// Content length of the last HTTP response.
         /// </summary>
-        public string LastHttpResponseContentSha256 { get; set; }
+        public int LastHttpResponseContentLength { get; }
 
         /// <summary>
-        /// Gets or sets a dictionary containing the website's cookies.
+        /// SHA256 hash of the URL response body.
         /// </summary>
-        public Dictionary<string, string> LastHttpResponseCookies { get; set; }
+        public string LastHttpResponseContentSha256 { get; }
 
         /// <summary>
-        /// Gets or sets a dictionary containing the headers of the last HTTP response.
+        /// Dictionary containing the website's cookies.
         /// </summary>
-        public Dictionary<string, string> LastHttpResponseHeaders { get; set; }
+        public Dictionary<string, string> LastHttpResponseCookies { get; }
 
         /// <summary>
-        /// Gets or sets the UTC timestamp of the last modification date.
+        /// Dictionary containing the headers of the last HTTP response.
         /// </summary>
-        public long LastModificationDate { get; set; }
+        public Dictionary<string, string> LastHttpResponseHeaders { get; }
 
         /// <summary>
-        /// Gets or sets the UTC timestamp of the last submission date.
+        /// UTC timestamp of the last modification date.
         /// </summary>
-        public long LastSubmissionDate { get; set; }
+        public long LastModificationDate { get; }
 
         /// <summary>
-        /// Gets or sets a list of outgoing links.
+        /// UTC timestamp of the last submission date.
         /// </summary>
-        public List<string> OutgoingLinks { get; set; }
+        public long LastSubmissionDate { get; }
 
         /// <summary>
-        /// Gets or sets a list of redirection chains.
+        /// List of outgoing links.
         /// </summary>
-        public List<string> RedirectionChain { get; set; }
+        public List<string> OutgoingLinks { get; }
 
         /// <summary>
-        /// Gets or sets the reputation score of the URL.
+        /// List of redirection chains.
         /// </summary>
-        public int Reputation { get; set; }
+        public List<string> RedirectionChain { get; }
 
         /// <summary>
-        /// Gets or sets a list of tags associated with the URL.
+        /// Reputation score of the URL.
         /// </summary>
-        public List<string> Tags { get; set; }
+        public int Reputation { get; }
 
         /// <summary>
-        /// Gets or sets a dictionary with targeted brand information.
+        /// List of tags associated with the URL.
         /// </summary>
-        public Dictionary<string, string> TargetedBrand { get; set; }
+        public List<string> Tags { get; }
 
         /// <summary>
-        /// Gets or sets the number of times the URL has been submitted for analysis.
+        /// Dictionary with targeted brand information.
         /// </summary>
-        public int TimesSubmitted { get; set; }
+        public Dictionary<string, string> TargetedBrand { get; }
 
         /// <summary>
-        /// Gets or sets the title of the webpage.
+        /// Number of times the URL has been submitted for analysis.
         /// </summary>
-        public string Title { get; set; }
+        public int TimesSubmitted { get; }
 
         /// <summary>
-        /// Gets or sets a dictionary containing total votes received for the URL.
+        /// Title of the webpage.
         /// </summary>
-        public TotalVotes TotalVotes { get; set; }
+        public string Title { get; }
 
         /// <summary>
-        /// Gets or sets a dictionary of trackers found in the URL.
+        /// Dictionary containing total votes received for the URL.
         /// </summary>
-        public Dictionary<string, List<Tracker>> Trackers { get; set; }
+        public TotalVotes TotalVotes { get; }
 
         /// <summary>
-        /// Gets or sets the original URL being scanned.
+        /// Dictionary of trackers found in the URL.
         /// </summary>
-        public string Url { get; set; }
+        public Dictionary<string, List<Tracker>> Trackers { get; }
+
+        /// <summary>
+        /// Original URL being scanned.
+        /// </summary>
+        public string Url { get; }
     }
 }

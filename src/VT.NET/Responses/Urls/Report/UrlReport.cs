@@ -1,4 +1,5 @@
-﻿using VT.NET.Responses.Files;
+﻿using System.Text.Json.Serialization;
+using VT.NET.Responses.Files;
 
 namespace VT.NET.Responses.Urls.Report
 {
@@ -8,27 +9,38 @@ namespace VT.NET.Responses.Urls.Report
     /// </summary>
     public class UrlReport
     {
+        internal UrlReport() { }
+
+        [JsonConstructor]
+        internal UrlReport(string id, string type, Links links, UrlAttributes attributes)
+        {
+            Id = id;
+            Type = type;
+            Links = links;
+            Attributes = attributes;
+        }
+
         /// <summary>
-        /// Gets or sets the unique identifier for the URL report.
+        /// Unique identifier for the URL report.
         /// This ID corresponds to the SHA256 hash of the URL.
         /// </summary>
-        public string Id { get; set; }
+        public string Id { get; }
 
         /// <summary>
-        /// Gets or sets the type of the resource. For URL reports, this will typically be "url".
+        /// Type of the resource. For URL reports, this will typically be "url".
         /// </summary>
-        public string Type { get; set; }
+        public string Type { get; }
 
         /// <summary>
-        /// Gets or sets the links associated with the URL report.
+        /// Links associated with the URL report.
         /// This property contains various links relevant to the URL, such as self-referencing links.
         /// </summary>
-        public Links Links { get; set; }
+        public Links Links { get; }
 
         /// <summary>
-        /// Gets or sets the attributes of the URL report.
+        /// Attributes of the URL report.
         /// This property contains various metadata and analysis results related to the URL.
         /// </summary>
-        public UrlAttributes Attributes { get; set; }
+        public UrlAttributes Attributes { get; }
     }
 }

@@ -1,23 +1,35 @@
-﻿namespace VT.NET.Responses.Urls.Report
+﻿using System.Text.Json.Serialization;
+
+namespace VT.NET.Responses.Urls.Report
 {
     /// <summary>
     /// Represents a tracker associated with the URL.
     /// </summary>
     public class Tracker
     {
-        /// <summary>
-        /// Gets or sets the ID of the tracker, if available.
-        /// </summary>
-        public string Id { get; set; }
+        internal Tracker() { }
+
+        [JsonConstructor]
+        internal Tracker(string id, long timestamp, string url)
+        {
+            Id = id;
+            Timestamp = timestamp;
+            Url = url;
+        }
 
         /// <summary>
-        /// Gets or sets the ingestion date of the tracker as a UNIX timestamp.
+        /// ID of the tracker, if available.
         /// </summary>
-        public long Timestamp { get; set; }
+        public string Id { get; }
 
         /// <summary>
-        /// Gets or sets the URL of the tracker script.
+        /// Ingestion date of the tracker as a UNIX timestamp.
         /// </summary>
-        public string Url { get; set; }
+        public long Timestamp { get; }
+
+        /// <summary>
+        /// URL of the tracker script.
+        /// </summary>
+        public string Url { get; }
     }
 }

@@ -71,7 +71,7 @@ namespace VT.NET.Http
 
             if (string.IsNullOrWhiteSpace(headerValue))
             {
-                throw new ArgumentNullException(headerValue);
+                throw new ArgumentNullException($"{headerName}:{headerValue}");
             }
 
             bool headerExists = _httpClient.DefaultRequestHeaders.Contains(headerName);

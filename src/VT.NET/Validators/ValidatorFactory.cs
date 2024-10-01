@@ -14,6 +14,7 @@ namespace VT.NET.Validators
             _validators.Add(typeof(FileSizeValidator), new FileSizeValidator());
             _validators.Add(typeof(StreamValidator), new StreamValidator());
             _validators.Add(typeof(VTFileValidator), new VTFileValidator(this));
+            _validators.Add(typeof(IPAddressValidator), new IPAddressValidator());
         }
 
         public IValidator<T> Get<T>(Type type)
