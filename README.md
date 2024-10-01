@@ -4,9 +4,11 @@ A simple and easy-to-use C# client library for interacting with the [VirusTotal 
 
 ## Features
 
-- Upload files and URLs for analysis
-- Retrieve analysis results using file hashes or analysis IDs
-- Support for custom tags and comments
+- Files API client (scan, rescan, get report)
+- URLs API client (scan, rescan, get report)
+- IP addresses API client (get report, rescan)
+- Domains & Resolutions API client (get report, rescan, get resolution)
+- All-In-One client for public VirusTotal APIs
 
 ## Getting Started
 
@@ -41,8 +43,22 @@ For DI-ready solutions use `VT.NET.DependencyInjection.Extensions` package which
 	```csharp
 	builder.Services.AddVTFilesClient(configuration);
 	```
-	
-Then in classes where you will use the client inject `IVTFiles` via constructor.
+You can use different types of clients depending on your need.
+Files client:
+```csharp
+builder.Services.AddVTFilesClient(configuration);
+```
+ URLs client:
+```csharp
+builder.Services.AddVTUrlsClient(configuration);
+```
+
+ Or you can use All-In-One client:
+```csharp
+builder.Services.AddVTClient(configuration);
+```
+
+Then in classes where you will use the client inject `IVTFiles` or any other client depending on your need via constructor.
 
 # License
 
