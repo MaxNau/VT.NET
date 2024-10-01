@@ -46,7 +46,7 @@ namespace VT.NET.Endpoints
                 { "url", "https://docs.virustotal.com/reference/scan-url" },
             }))
             {
-                var result = await Self.PostAsync<VTResponse<VTAnalysis>>("urls", content, cancellationToken);
+                var result = await Self.PostAsync<VTResponse<VTAnalysis>>("urls", content, cancellationToken).ConfigureAwait(false);
                 return result.Data;
             }
         }
@@ -66,7 +66,7 @@ namespace VT.NET.Endpoints
             }
 
             var base64EncodedUrl = _vtUrlIdentifierGenerator.EncodeUrlToBase64(url);
-            var result = await Self.GetAsync<VTResponse<UrlReport>>($"urls/{base64EncodedUrl}", cancellationToken);
+            var result = await Self.GetAsync<VTResponse<UrlReport>>($"urls/{base64EncodedUrl}", cancellationToken).ConfigureAwait(false);
             return result.Data;
         }
 
@@ -78,7 +78,7 @@ namespace VT.NET.Endpoints
         /// <returns>A task representing the asynchronous operation, containing the URL report.</returns>
         public async Task<UrlReport> GetReportAsync(string id, CancellationToken cancellationToken = default)
         {
-            var result = await Self.GetAsync<VTResponse<UrlReport>>($"urls/{id}", cancellationToken);
+            var result = await Self.GetAsync<VTResponse<UrlReport>>($"urls/{id}", cancellationToken).ConfigureAwait(false);
             return result.Data;
         }
 
@@ -97,7 +97,7 @@ namespace VT.NET.Endpoints
             }
 
             var base64EncodedUrl = _vtUrlIdentifierGenerator.EncodeUrlToBase64(url);
-            var result = await Self.GetAsync<VTResponse<VTAnalysis>>($"urls/{base64EncodedUrl}/analyse", cancellationToken);
+            var result = await Self.GetAsync<VTResponse<VTAnalysis>>($"urls/{base64EncodedUrl}/analyse", cancellationToken).ConfigureAwait(false);
             return result.Data;
         }
 
@@ -110,7 +110,7 @@ namespace VT.NET.Endpoints
         /// <returns>A task representing the asynchronous operation, containing the analysis result.</returns>
         public async Task<VTAnalysis> RescanAsync(string id, CancellationToken cancellationToken = default)
         {
-            var result = await Self.GetAsync<VTResponse<VTAnalysis>>($"urls/{id}/analyse", cancellationToken);
+            var result = await Self.GetAsync<VTResponse<VTAnalysis>>($"urls/{id}/analyse", cancellationToken).ConfigureAwait(false);
             return result.Data;
         }
     }
