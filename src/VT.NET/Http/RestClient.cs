@@ -14,7 +14,7 @@ namespace VT.NET.Http
     /// The <see cref="RestClient"/> class provides methods to perform GET and POST requests,
     /// along with handling common response patterns such as deserialization and error handling.
     /// </remarks>
-    public class RestClient : IRestClient
+    public class RestClient : IRestClient, IDisposable
     {
         private readonly HttpClient _httpClient;
         private readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
@@ -22,6 +22,7 @@ namespace VT.NET.Http
             PropertyNameCaseInsensitive = true,
             PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
         };
+        private bool disposedValue;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RestClient"/> class with the specified <see cref="HttpClient"/>.
@@ -54,6 +55,12 @@ namespace VT.NET.Http
         {
             var response = await _httpClient.PostAsync(requestUri, content, cancellationToken).ConfigureAwait(false);
             return await GetResponseContentAsync<T>(response).ConfigureAwait(false);
+        }
+
+        async Task IRestClient.DeleteAsync(string requestUri, CancellationToken cancellationToken)
+        {
+            var response = await _httpClient.DeleteAsync(requestUri, cancellationToken).ConfigureAwait(false);
+            await GetResponseContentAsync<object>(response).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -100,6 +107,11 @@ namespace VT.NET.Http
                     contentAsString);
             }
 
+            if (string.IsNullOrWhiteSpace(contentAsString))
+            {
+                return default;
+            }    
+
             return JsonSerializer.Deserialize<T>(contentAsString, _jsonSerializerOptions);
         }
 
@@ -109,6 +121,32 @@ namespace VT.NET.Http
             {
                 httpClient.BaseAddress = new Uri(httpClient.BaseAddress.OriginalString + "/");
             }
+        }
+
+        /// <summary>
+        /// Releases HttpClient instance by calling Dispose
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _httpClient.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        /// <summary>
+        /// Releases HttpClient instance by calling Dispose
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

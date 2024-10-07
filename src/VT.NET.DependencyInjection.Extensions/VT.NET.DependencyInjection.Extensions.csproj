@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <VersionPrefix>0.3.0</VersionPrefix>
+    <VersionPrefix>0.4.0</VersionPrefix>
     <VersionSuffix>alpha</VersionSuffix>
     <PackageId>VTNet.DependencyInjection.Extensions</PackageId>
   </PropertyGroup>
@@ -53,11 +53,11 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[3.1.32, 9.0.0)" Condition="'$(TargetFramework)' == 'net472'" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="[3.1.32, 9.0.0)" Condition="'$(TargetFramework)' == 'net472'" />
 
-    <PackageReference Include="System.Net.Http" Version="*-*" Condition="'$(TargetFramework)' == 'net472'" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" Condition="'$(TargetFramework)' == 'net472'" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="VTNet" Version="*-*" IncludePreRelease="true" />
+    <PackageReference Include="VTNet" Version="0.3.0-alpha" IncludePreRelease="true" />
   </ItemGroup>
 
 </Project>

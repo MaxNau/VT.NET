@@ -1,4 +1,4 @@
-﻿using VT.NET.Endpoints;
+﻿using VT.NET.Endpoints.AllInOne;
 
 namespace VT.NET
 {
@@ -9,23 +9,8 @@ namespace VT.NET
     public interface IVTPublicClient
     {
         /// <summary>
-        /// Client for interacting with VirusTotal files API.
+        /// IOC REPUTATION and ENRICHMENT client
         /// </summary>
-        IVTFiles Files { get; }
-
-        /// <summary>
-        /// Client for interacting with VirusTotal URLs API.
-        /// </summary>
-        IVTUrls Urls { get; }
-
-        /// <summary>
-        /// Client for interacting with VirusTotal IP addresses API.
-        /// </summary>
-        IVTIPs IPs { get; }
-
-        /// <summary>
-        /// Client for interacting with VirusTotal domains API.
-        /// </summary>
-        IVTDomains Domains { get; }
+        IIocReputationAndEnrichmentClient IocReputationAndEnrichmentClient { get; }
     }
 }

@@ -1,20 +1,19 @@
 ﻿using System.Text.Json.Serialization;
-using VT.NET.Responses.Files;
 
 namespace VT.NET.Responses
 {
     /// <summary>
-    /// Represents the object in the VirusTotal API response (e.g file, comment etc).
+    /// Represents the object in the VirusTotal API response (e.g file, url, comment etc).
     /// </summary>
-    public class VTObject
+    public abstract class VTObject
     {
         internal VTObject() { }
 
         [JsonConstructor]
-        internal VTObject(string type, string id, Links links)
+        internal VTObject(string id, string type, Links links)
         {
-            Type = type;
             Id = id;
+            Type = type;
             Links = links;
         }
 
