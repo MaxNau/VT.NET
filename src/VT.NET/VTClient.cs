@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
-using VT.NET.Endpoints;
+using VT.NET.Endpoints.AllInOne;
+using VT.NET.Endpoints.IocReputationAndEnrichment;
 
 namespace VT.NET
 {
@@ -15,30 +16,12 @@ namespace VT.NET
         /// <param name="apiKey">The API key for authenticating requests to the VirusTotal API.</param>
         public VTClient(HttpClient httpClient, string apiKey) : base(httpClient, apiKey)
         {
-            Files = new VTFiles(httpClient, apiKey);
-            Urls = new VTUrls(httpClient, apiKey);
-            IPs = new VTIPs(httpClient, apiKey);
-            Domains = new VTDomains(httpClient, apiKey);
+            IocReputationAndEnrichmentClient = new IocReputationAndEnrichmentClient(httpClient, apiKey);
         }
 
         /// <summary>
-        /// Client for interacting with VirusTotal files API.
+        /// IOC REPUTATION and ENRICHMENT client
         /// </summary>
-        public IVTFiles Files { get; }
-
-        /// <summary>
-        /// Client for interacting with VirusTotal URLs API.
-        /// </summary>
-        public IVTUrls Urls { get; }
-
-        /// <summary>
-        /// Client for interacting with VirusTotal IP addresses API.
-        /// </summary>
-        public IVTIPs IPs { get; }
-
-        /// <summary>
-        /// Client for interacting with VirusTotal Domains API.
-        /// </summary>
-        public IVTDomains Domains { get; }
+        public IIocReputationAndEnrichmentClient IocReputationAndEnrichmentClient { get; }
     }
 }

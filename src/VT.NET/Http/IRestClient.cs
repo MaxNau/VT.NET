@@ -8,5 +8,6 @@ namespace VT.NET.Http
     {
         Task<T> GetAsync<T>(string requestUri, CancellationToken cancellationToken);
         Task<T> PostAsync<T>(string requestUri, HttpContent content, CancellationToken cancellationToken);
+        Task DeleteAsync(string requestUri, CancellationToken cancellationToken);
     }
 }
