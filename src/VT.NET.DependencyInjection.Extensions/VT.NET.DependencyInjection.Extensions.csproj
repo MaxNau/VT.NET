@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>net472;netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
-    <Title>VT.NET Dependency Injection Extensions</Title>
+    <Title>VT.NET VirusTotal .NET client Dependency Injection Extensions</Title>
     <Authors>Maksym Naumov</Authors>
     <PackageTags>VirusTotal;Virus Total;DependencyInjection;VT;Extensions</PackageTags>
-    <Description>VT.NET Dependency Injection Extensions</Description>
+    <Description>VT.NET VirusTotal .NET client Dependency Injection Extensions</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/MaxNau/VT.NET</PackageProjectUrl>
