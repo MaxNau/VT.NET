@@ -3,10 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using VT.NET.Constants;
-using VT.NET.Endpoints;
 using VT.NET.Utility;
 using VT.NET.Internal;
 using VT.NET.Http;
+using VT.NET.Endpoints.IocReputationAndEnrichment;
+using VT.NET.Endpoints.AllInOne;
 
 namespace VT.NET.DependencyInjection.Extensions.Internal
 {
@@ -84,6 +85,30 @@ namespace VT.NET.DependencyInjection.Extensions.Internal
                         return new VTClient(client, apiKey);
                     });
                     break;
+                case VTClients.Comments:
+                    services.AddSingleton<IVTComments, VTComments>(factory =>
+                    {
+                        return new VTComments(client, apiKey);
+                    });
+                    break;
+                 case VTClients.Votes:
+                    services.AddSingleton<IVTVotes, VTVotes>(factory =>
+                    {
+                        return new VTVotes(client, apiKey);
+                    });
+                    break;
+                 case VTClients.Objects:
+                    services.AddSingleton<IVTObjects, VTObjects>(factory =>
+                    {
+                        return new VTObjects(client, apiKey);
+                    });
+                    break;
+                 case VTClients.IocReputationAndEnrichment:
+                    services.AddSingleton<IIocReputationAndEnrichmentClient, IocReputationAndEnrichmentClient>(factory =>
+                    {
+                        return new IocReputationAndEnrichmentClient(client, apiKey);
+                    });
+                    break;
                 default:
                     break;
              }
@@ -125,6 +150,38 @@ namespace VT.NET.DependencyInjection.Extensions.Internal
                     break;
                 case VTClients.AllInOnePublicClient:
                     services.AddHttpClient<IVTPublicClient, VTClient>()
+                    .ConfigureHttpClient(client =>
+                    {
+                        client.DefaultRequestHeaders.Add(VTHeaderNames.ApiKey, apiKey);
+                        client.BaseAddress = new Uri(apiUrl);
+                    });
+                    break;
+                case VTClients.Comments:
+                    services.AddHttpClient<IVTComments, VTComments>()
+                    .ConfigureHttpClient(client =>
+                    {
+                        client.DefaultRequestHeaders.Add(VTHeaderNames.ApiKey, apiKey);
+                        client.BaseAddress = new Uri(apiUrl);
+                    });
+                    break;
+                case VTClients.Votes:
+                    services.AddHttpClient<IVTVotes, VTVotes>()
+                    .ConfigureHttpClient(client =>
+                    {
+                        client.DefaultRequestHeaders.Add(VTHeaderNames.ApiKey, apiKey);
+                        client.BaseAddress = new Uri(apiUrl);
+                    });
+                    break;
+                case VTClients.Objects:
+                    services.AddHttpClient<IVTObjects, VTObjects>()
+                    .ConfigureHttpClient(client =>
+                    {
+                        client.DefaultRequestHeaders.Add(VTHeaderNames.ApiKey, apiKey);
+                        client.BaseAddress = new Uri(apiUrl);
+                    });
+                    break;
+                case VTClients.IocReputationAndEnrichment:
+                    services.AddHttpClient<IIocReputationAndEnrichmentClient, IocReputationAndEnrichmentClient>()
                     .ConfigureHttpClient(client =>
                     {
                         client.DefaultRequestHeaders.Add(VTHeaderNames.ApiKey, apiKey);

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using VT.NET.DependencyInjection.Extensions.Internal;
 
-namespace VT.NET.DependencyInjection.Extensions.Standalone.UrlsClient
+namespace VT.NET.DependencyInjection.Extensions.Standalone.IocReputationAndEnrichment.UrlsClient
 {
     public static class ServiceCollectionExtensions
     {

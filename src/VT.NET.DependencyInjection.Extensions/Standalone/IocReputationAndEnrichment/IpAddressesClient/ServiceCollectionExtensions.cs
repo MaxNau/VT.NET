@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using VT.NET.DependencyInjection.Extensions.Internal;
 
-namespace VT.NET.DependencyInjection.Extensions.Standalone.IpAddressesClient
+namespace VT.NET.DependencyInjection.Extensions.Standalone.IocReputationAndEnrichment.IpAddressesClient
 {
     public static class ServiceCollectionExtensions
     {

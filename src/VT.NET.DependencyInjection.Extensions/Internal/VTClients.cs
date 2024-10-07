@@ -4,9 +4,14 @@
     {
         AllInOnePublicClient,
         IocReputationAndEnrichment,
+
+        /// IOC Reputation And Enrichment
         Files,
         Urls,
         IPs,
-        Domains
+        Domains,
+        Comments,
+        Votes,
+        Objects
     }
 }
