@@ -182,6 +182,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 - [ ] Popular Threat Categories
   - [ ] Get a list of popular threat categories
 </details>
+</details>
 
 
 # License
