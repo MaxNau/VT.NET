@@ -63,20 +63,33 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 # Roadmap
 
 <details>
-<summary>IOC REPUTATION & ENRICHMENT</summary>
+<summary style="padding-left: 10px;">IP addresses</summary>
+- [x] IP addresses
+  - [x] Get an IP address report
+  - [x] Request an IP address rescan (re-analyze)
+  - [x] Get comments on an IP address
+  - [x] Add a comment to an IP address
+  - [x] Get objects related to an IP address
+  - [x] Get object descriptors related to an IP address
+  - [x] Get votes on an IP address
+  - [x] Add a vote to an IP address
+</details>
 
-	<details>
-	<summary>IP addresses</summary>
-	- [x] IP addresses
-	  - [x] Get an IP address report
-	  - [x] Request an IP address rescan (re-analyze)
-	  - [x] Get comments on an IP address
-	  - [x] Add a comment to an IP address
-	  - [x] Get objects related to an IP address
-	  - [x] Get object descriptors related to an IP address
-	  - [x] Get votes on an IP address
-	  - [x] Add a vote to an IP address
-	</details>
+<details>
+<summary>IOC REPUTATION & ENRICHMENT</summary>
+	
+<details>
+<summary style="padding-left: 10px;">IP addresses</summary>
+- [x] IP addresses
+  - [x] Get an IP address report
+  - [x] Request an IP address rescan (re-analyze)
+  - [x] Get comments on an IP address
+  - [x] Add a comment to an IP address
+  - [x] Get objects related to an IP address
+  - [x] Get object descriptors related to an IP address
+  - [x] Get votes on an IP address
+  - [x] Add a vote to an IP address
+</details>
 
 <details>
 <summary style="padding-left: 10px;">Domains & Resolutions</summary>
