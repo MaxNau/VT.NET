@@ -63,25 +63,11 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 # Roadmap
 
 <details>
-<summary>IP addresses</summary>
-
-- [x] IP addresses
-  - [x] Get an IP address report
-  - [x] Request an IP address rescan (re-analyze)
-  - [x] Get comments on an IP address
-  - [x] Add a comment to an IP address
-  - [x] Get objects related to an IP address
-  - [x] Get object descriptors related to an IP address
-  - [x] Get votes on an IP address
-  - [x] Add a vote to an IP address
-
-</details>
-
-<details>
 <summary>IOC REPUTATION & ENRICHMENT</summary>
 	
 <details>
-<summary style="padding-left: 10px;">IP addresses</summary>
+<summary style="padding-left: 10px;>IP addresses</summary>
+
 - [x] IP addresses
   - [x] Get an IP address report
   - [x] Request an IP address rescan (re-analyze)
@@ -91,10 +77,12 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
   - [x] Get object descriptors related to an IP address
   - [x] Get votes on an IP address
   - [x] Add a vote to an IP address
+
 </details>
 
 <details>
 <summary style="padding-left: 10px;">Domains & Resolutions</summary>
+	
 - [x] Domains & Resolutions
   - [x] Get a domain report
   - [x] Get comments on a domain
@@ -108,6 +96,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 
 <details>
 <summary style="padding-left: 10px;">Files</summary>
+	
 - [ ] Files
   - [x] Upload a file
   - [x] Get a file report
@@ -126,6 +115,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 
 <details>
 <summary style="padding-left: 10px;">File Behaviours</summary>
+	
 - [ ] File Behaviours
   - [ ] Get a summary of all behavior reports for a file
   - [ ] Get a summary of all MITRE ATT&CK techniques observed in a file
@@ -141,6 +131,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 
 <details>
 <summary style="padding-left: 10px;">URLs</summary>
+	
 - [x] URLs
   - [x] Scan URL
   - [x] Get a URL analysis report
@@ -155,6 +146,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 
 <details>
 <summary style="padding-left: 10px;">Comments</summary>
+	
 - [ ] Comments
   - [x] Get latest comments
   - [x] Get a comment object
@@ -166,6 +158,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 
 <details>
 <summary style="padding-left: 10px;">Analyses, Submissions & Operations</summary>
+	
 - [ ] Analyses, Submissions & Operations
   - [x] Get a URL / file analysis
   - [x] Get objects related to an analysis
@@ -177,6 +170,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 
 <details>
 <summary style="padding-left: 10px;">Attack Tactics</summary>
+	
 - [ ] Attack Tactics
   - [ ] Get an attack tactic object
   - [ ] Get objects related to an attack tactic
@@ -185,6 +179,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 
 <details>
 <summary style="padding-left: 10px;">Attack Techniques</summary>
+	
 - [ ] Attack Techniques
   - [ ] Get an attack technique object
   - [ ] Get objects related to an attack technique
@@ -193,6 +188,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 
 <details>
 <summary style="padding-left: 10px;">Popular Threat Categories</summary>
+	
 - [ ] Popular Threat Categories
   - [ ] Get a list of popular threat categories
 </details>
