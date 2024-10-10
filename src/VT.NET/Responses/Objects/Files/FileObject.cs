@@ -15,7 +15,7 @@ namespace VT.NET.Responses.Objects.Files
 
         [JsonConstructor]
         internal FileObject(string id, string type, Links links, FileObjectAttributes attributes)
-            : base(type, id, links)
+            : base(id, type, links)
         {
             Attributes = attributes;
         }

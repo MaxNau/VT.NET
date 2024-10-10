@@ -12,7 +12,12 @@ namespace VT.NET.Responses.Objects.Analysis
     /// </remarks>
     public class AnalysisObject : VTObject
     {
+        internal AnalysisObject() { }
+
         [JsonConstructor]
-        internal AnalysisObject(string type, string id, Links links) : base(type, id, links) { }
+        internal AnalysisObject(string type, string id, Links links)
+            : base(id, type, links)
+        {
+        }
     }
 }
