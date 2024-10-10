@@ -66,7 +66,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 <summary>IOC REPUTATION & ENRICHMENT</summary><blockquote>
 
 <details>
-<summary>IP addresses</summary><blockquote>
+<summary>IP addresses</summary>
 
 - [x] IP addresses
   - [x] Get an IP address report
@@ -78,7 +78,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
   - [x] Get votes on an IP address
   - [x] Add a vote to an IP address
 
-</blockquote></details>
+</details>
 
 <details>
 <summary>Domains & Resolutions</summary>
