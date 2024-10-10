@@ -63,14 +63,10 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 # Roadmap
 
 <details>
-<summary>IOC REPUTATION & ENRICHMENT
-
-</summary>
-
+<summary>IOC REPUTATION & ENRICHMENT</summary><blockquote>
 
 <details>
-
-<summary>IP addresses</summary>
+<summary>IP addresses</summary><blockquote>
 
 - [x] IP addresses
   - [x] Get an IP address report
@@ -82,7 +78,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
   - [x] Get votes on an IP address
   - [x] Add a vote to an IP address
 
-</details>
+</blockquote></details>
 
 <details>
 <summary>Domains & Resolutions</summary>
@@ -196,7 +192,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 - [ ] Popular Threat Categories
   - [ ] Get a list of popular threat categories
 </details>
-</details>
+</blockquote></details>
 
 
 # License
