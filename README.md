@@ -67,7 +67,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 
 <details>
 
-<summary style="padding-left: 10px;">IP addresses</summary>
+<summary>IP addresses</summary>
 - [x] IP addresses
   - [x] Get an IP address report
   - [x] Request an IP address rescan (re-analyze)
