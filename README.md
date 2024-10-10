@@ -63,7 +63,9 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 # Roadmap
 
 <details>
-<summary>IOC REPUTATION & ENRICHMENT</summary>
+<summary>IOC REPUTATION & ENRICHMENT
+
+</summary>
 
 
 <details>
