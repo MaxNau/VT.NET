@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <VersionPrefix>0.4.0</VersionPrefix>
+    <VersionPrefix>0.4.1</VersionPrefix>
     <VersionSuffix>alpha</VersionSuffix>
     <PackageId>VTNet.DependencyInjection.Extensions</PackageId>
   </PropertyGroup>
@@ -57,7 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="VTNet" Version="0.4.0-alpha" IncludePreRelease="true" />
+    <PackageReference Include="VTNet" Version="0.4.1-alpha" IncludePreRelease="true" />
   </ItemGroup>
 
 </Project>
