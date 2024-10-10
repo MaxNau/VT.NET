@@ -66,6 +66,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 <summary>IOC REPUTATION & ENRICHMENT</summary>
 
 <details>
+
 <summary style="padding-left: 10px;">IP addresses</summary>
 - [x] IP addresses
   - [x] Get an IP address report
@@ -97,7 +98,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
   - [x] Upload a file
   - [x] Get a file report
   - [x] Request a file rescan (re-analyze)
-  - [ ] Get a file’s download URL
+  - [ ] Get a fileâ€™s download URL
   - [ ] Download a file
   - [x] Get comments on a file
   - [x] Add a comment to a file
@@ -119,9 +120,9 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
   - [ ] Get objects related to a behaviour report
   - [ ] Get object descriptors related to a behaviour report
   - [ ] Get a detailed HTML behaviour report
-  - [ ] Get the EVTX file generated during a file’s behavior analysis
-  - [ ] Get the PCAP file generated during a file’s behavior analysis
-  - [ ] Get the memdump file generated during a file’s behavior analysis
+  - [ ] Get the EVTX file generated during a fileâ€™s behavior analysis
+  - [ ] Get the PCAP file generated during a fileâ€™s behavior analysis
+  - [ ] Get the memdump file generated during a fileâ€™s behavior analysis
 </details>
 
 <details>
@@ -181,6 +182,7 @@ Then in classes where you will use the client inject `IVTFiles` or any other cli
 - [ ] Popular Threat Categories
   - [ ] Get a list of popular threat categories
 </details>
+
 
 # License
 
